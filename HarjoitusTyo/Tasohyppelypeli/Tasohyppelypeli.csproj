@@ -14,4 +14,10 @@
       <Folder Include="Content\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Content\cartoon-cat-6761858_1280.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
