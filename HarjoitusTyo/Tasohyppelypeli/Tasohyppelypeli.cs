@@ -21,9 +21,9 @@ public class Tasohyppely : PhysicsGame
 
     Image pelaajanKuva = LoadImage("cartoon-cat-6761858_1280.png");
 
-    Vector nopeusYlos = new Vector(0, 700);
-    Vector nopeusVasen = new Vector(-200, 0);
-    Vector nopeusOikea = new Vector(200, 0);
+    Vector nopeusYlos = new Vector(0, 900);
+    Vector nopeusVasen = new Vector(-300, 0);
+    Vector nopeusOikea = new Vector(300, 0);
 
     IntMeter pistelaskuri;
 
@@ -46,8 +46,8 @@ public class Tasohyppely : PhysicsGame
     private void Luokentta()
     {
         int[] xsuunta = new [] { 20, -20, 40, -60, 70, -80, -100, 90, 22, -55, 100, -100, 20, -150 };
-        int[] ysuunta = new[] {-200, 0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400};
-        int[] rahay = new[] {-100 ,50 , 230, 450, 660, 900, 1100, 1250, 1500, 1650, 1890, 2100, 2300, 2470};
+        int[] ysuunta = new[] {-200, 10, 220, 450, 610, 880, 1020, 1260, 1430, 1610, 1890, 2020, 2230, 2440};
+        int[] rahay = new[] {-100 ,50 , 270, 490, 660, 920, 1100, 1290, 1500, 1650, 1990, 2100, 2300, 2470};
         int[] rahax = new[] {30, -33, -50, 40, 60, -40, 20, -20, -80, -110, 70, 20, -55, -100, -200, 20, 200, 100};
         
         olio = LuoPelaaja(0.0, -190.0);
