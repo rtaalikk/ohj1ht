@@ -15,23 +15,22 @@ namespace Tasohyppelypeli;
 /// </summary>
 public class Tasohyppely : PhysicsGame
 {
-    private PhysicsObject liuska;
+    PhysicsObject olio;
 
-    private PhysicsObject olio;
+    PhysicsObject alaReuna;
 
-    private PhysicsObject raha;
+    Image pelaajanKuva = LoadImage("cartoon-cat-6761858_1280.png");
 
-    private PhysicsObject alaReuna;
+    Vector nopeusYlos = new Vector(0, 700);
+    Vector nopeusVasen = new Vector(-200, 0);
+    Vector nopeusOikea = new Vector(200, 0);
 
-    private Image pelaajanKuva = LoadImage("cartoon-cat-6761858_1280.png");
-
-    private Vector nopeusYlos = new Vector(0, 700);
-    private Vector nopeusVasen = new Vector(-200, 0);
-    private Vector nopeusOikea = new Vector(200, 0);
-
-    private IntMeter pistelaskuri;
+    IntMeter pistelaskuri;
 
     
+    /// <summary>
+    /// kutsutaan peliin tarvittavat aliohjelmat
+    /// </summary>
     public override void Begin()
     {
         Luokentta();
@@ -57,9 +56,9 @@ public class Tasohyppely : PhysicsGame
         
         for(int i = 0; i < xsuunta.Length; i++)
         {
-           liuska = LuoLiuska(xsuunta[i], ysuunta[i]);
+           LuoLiuska(xsuunta[i], ysuunta[i]);
             
-            raha = LuoRaha(rahax[i], rahay[i]);
+           LuoRaha(rahax[i], rahay[i]);
         }
         
         alaReuna = Level.CreateBottomBorder();
@@ -74,8 +73,7 @@ public class Tasohyppely : PhysicsGame
 /// </summary>
 /// <param name="x"> Liuskan x arvo</param>
 /// <param name="y">Liuskan y arvo</param>
-/// <returns>palauttaa liuskan</returns>
-    private PhysicsObject LuoLiuska(double x, double y)
+    private void LuoLiuska(double x, double y)
     {
         PhysicsObject liuska = PhysicsObject.CreateStaticObject(150.0, 10);
         
@@ -85,7 +83,6 @@ public class Tasohyppely : PhysicsGame
         liuska.Color = Color.Black;
         
         Add(liuska);
-        return liuska;
     }
     
     
@@ -132,8 +129,7 @@ public class Tasohyppely : PhysicsGame
 /// </summary>
 /// <param name="x">rahan x kordinaatti</param>
 /// <param name="y">rahan y kordinaatti</param>
-/// <returns>palauttaa valuutan</returns>
-    private PhysicsObject LuoRaha(double x, double y)
+    private void LuoRaha(double x, double y)
     {
         PhysicsObject raha = PhysicsObject.CreateStaticObject(40, 40);
         
@@ -145,7 +141,6 @@ public class Tasohyppely : PhysicsGame
         raha.Tag = "raha";
         
         Add(raha);
-        return raha;
     }
 
 
