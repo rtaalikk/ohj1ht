@@ -161,8 +161,8 @@ public class Tasohyppely : PhysicsGame
 /// <summary>
 /// Rahan tormays luodaan
 /// </summary>
-/// <param name="olio"></param>
-/// <param name="raha"></param>
+/// <param name="olio">Pelin olio</param>
+/// <param name="raha">Pelin valuutta</param>
     private void Tormays(PhysicsObject olio, PhysicsObject raha)
     {
         MessageDisplay.Add("Sait rahaa!");
