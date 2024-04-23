@@ -36,7 +36,7 @@ public class Tasohyppely : PhysicsGame
     {
         Luokentta();
         LisaaNappaimet();
-        LuoPisteLaskuri();
+        PisteLaskuri();
         
     }
 
@@ -57,7 +57,7 @@ public class Tasohyppely : PhysicsGame
         
         for(int i = 0; i < xsuunta.Length; i++)
         {
-            LuoLiuska(xsuunta[i], ysuunta[i]);
+           liuska = LuoLiuska(xsuunta[i], ysuunta[i]);
             
             raha = LuoRaha(rahax[i], rahay[i]);
         }
@@ -65,29 +65,25 @@ public class Tasohyppely : PhysicsGame
         alaReuna = Level.CreateBottomBorder();
         alaReuna.IsVisible = false;
         Level.Background.Color = Color.Cyan;
-        
         Camera.Follow(olio);
-        
-        if (olio == alaReuna)
-        {
-            AloitaAlusta();
-        }
-        
     }
     
     
 /// <summary>
-/// Tehdään liuska jonka avuilla pelaaja hyppii
+/// Aliohjelma, joka tekee liuskan pelikentälle
 /// </summary>
-/// <param name="Liuska"></param>
-/// <returns>Palauttaa liuskan</returns>
+/// <param name="x"> Liuskan x arvo</param>
+/// <param name="y">Liuskan y arvo</param>
+/// <returns>palauttaa liuskan</returns>
     private PhysicsObject LuoLiuska(double x, double y)
     {
         PhysicsObject liuska = PhysicsObject.CreateStaticObject(150.0, 10);
+        
         liuska.Shape = Shape.Rectangle;
         liuska.X = x;
         liuska.Y = y;
         liuska.Color = Color.Black;
+        
         Add(liuska);
         return liuska;
     }
@@ -100,16 +96,17 @@ public class Tasohyppely : PhysicsGame
     {
         Keyboard.Listen(Key.Left, ButtonState.Pressed, Liikuta, "Pelaaja liikkuu vasemmalle", olio, nopeusVasen);
         Keyboard.Listen(Key.Right, ButtonState.Pressed, Liikuta, "Pelaaja liikkuu oikealle", olio, nopeusOikea);
-        Keyboard.Listen(Key.Up, ButtonState.Pressed, Hyppy, "Pelaaja liikkuu ylös", olio, nopeusYlos);
+        Keyboard.Listen(Key.Up, ButtonState.Pressed, Liikuta, "Pelaaja liikkuu ylös", olio, nopeusYlos);
         
         Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
     }
 
     
 /// <summary>
-/// Luodaan pelaaja, jota pystyy liikuttamaan
+/// Aliohjelma, jossa luodaan pelaaja
 /// </summary>
-/// <param name="Pelaaja"></param>
+/// <param name="x">Olion x kordinaatti</param>
+/// <param name="y">Olion y kordinaatti</param>
 /// <returns>Palauttaa olion</returns>
     private PhysicsObject LuoPelaaja(double x, double y)
     {
@@ -130,20 +127,19 @@ public class Tasohyppely : PhysicsGame
     }
 
 
-    /// <summary>
-/// Luodaan raha, jota pelaajan tulee kerät
+/// <summary>
+/// luodaan valuutta pelikentälle
 /// </summary>
-/// <param name="Raha"></param>
-/// <returns>Rahan</returns>
+/// <param name="x">rahan x kordinaatti</param>
+/// <param name="y">rahan y kordinaatti</param>
+/// <returns>palauttaa valuutan</returns>
     private PhysicsObject LuoRaha(double x, double y)
     {
         PhysicsObject raha = PhysicsObject.CreateStaticObject(40, 40);
         
         raha.IgnoresCollisionResponse = true;
-        
         raha.X = x;
         raha.Y = y;
-        
         raha.Color = Color.Yellow;
         raha.Shape = Shape.Diamond;
         raha.Tag = "raha";
@@ -163,15 +159,6 @@ public class Tasohyppely : PhysicsGame
 
 
 /// <summary>
-/// Tehdään hyppäämisliike
-/// </summary>
-    private void Hyppy(PhysicsObject olio, Vector nopeus)
-    {
-        olio.Hit(nopeus);
-    }
-
-
-/// <summary>
 /// Rahan tormays luodaan
 /// </summary>
 /// <param name="olio"></param>
@@ -180,50 +167,38 @@ public class Tasohyppely : PhysicsGame
     {
         MessageDisplay.Add("Sait rahaa!");
         raha.Destroy();
-    }
-
-
-/// <summary>
-/// Aloitetaan peli alusta
-/// </summary>
-    private void AloitaAlusta()
-    {
-        ClearAll();
-        Luokentta();
-        LisaaNappaimet();
+        if (olio != raha) pistelaskuri.Value += 1;
     }
 
 
 /// <summary>
 /// pistelaskurin luominen
 /// </summary>
-    private void LuoPisteLaskuri()
+    private void PisteLaskuri()
     {
         pistelaskuri = new IntMeter(0);
-        
         
         Label pistenaytto = new Label();
         pistenaytto.X = Screen.Left + 100;
         pistenaytto.Y = Screen.Top - 100;
         pistenaytto.Title = "Rahaa: ";
-        
         pistenaytto.BindTo(pistelaskuri);
         Add(pistenaytto);
-
-        if (olio == raha) pistelaskuri.Value += 1;
+        
         pistelaskuri.MaxValue = 10;
-        pistelaskuri.UpperLimit += Voitto;
+        pistelaskuri.UpperLimit += AloitaAlusta;
     }
 
 
-/// <summary>
-/// Aliohjelma onnittelee ja käynnistää pelin uudelleen
-/// </summary>
-    private void Voitto()
+    /// <summary>
+    /// Aloitetaan peli alusta
+    /// </summary>
+    private void AloitaAlusta()
     {
-        MessageDisplay.Add("Onnea! Voitit pelin.");
-        AloitaAlusta();
+        ClearAll();
+        Luokentta();
+        LisaaNappaimet();
+        PisteLaskuri();
     }
-    
 
 }
