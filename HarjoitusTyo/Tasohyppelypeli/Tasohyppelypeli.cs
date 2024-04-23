@@ -24,7 +24,7 @@ public class Tasohyppely : PhysicsGame
 
     private Image pelaajanKuva = LoadImage("cartoon-cat-6761858_1280.png");
 
-    private Vector nopeusYlos = new Vector(0, 100);
+    private Vector nopeusYlos = new Vector(0, 700);
     private Vector nopeusVasen = new Vector(-100, 0);
     private Vector nopeusOikea = new Vector(100, 0);
 
@@ -34,24 +34,22 @@ public class Tasohyppely : PhysicsGame
         Luokentta();
         LisaaNappaimet();
         
-        Gravity = new Vector(0, -981.0);
-        
     }
 
+    
     /// <summary>
     /// Luodaan Luokenttä aliohjelma jonka avulla voidaan luoda kentälle hahmoja
     /// </summary>
     void Luokentta()
     {
-        int[] xsuunta = new [] { 20, -20, 40, -60, 70, -80, -100, 90, 22, -55 };
-
-        int[] ysuunta = new[] {-200, 0, 200, 400, 600, 800, 1000, 1200, 1400, 1600};
-
-        int[] rahay = new[] {-100 ,50 , 230, 450, 660, 900, 1100, 1250, 1500, 1650, 1800};
-
-        int[] rahax = new[] {30, -33, -50, 40, 60, -40, 20, -20, -80, -110, 70, 20, -55, -100};
+        int[] xsuunta = new [] { 20, -20, 40, -60, 70, -80, -100, 90, 22, -55, 100, -100, 20, -150 };
+        int[] ysuunta = new[] {-200, 0, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400};
+        int[] rahay = new[] {-100 ,50 , 230, 450, 660, 900, 1100, 1250, 1500, 1650, 1890, 2100, 2300, 2470};
+        int[] rahax = new[] {30, -33, -50, 40, 60, -40, 20, -20, -80, -110, 70, 20, -55, -100, -200, 20, 200, 100};
         
         olio = LuoPelaaja(0.0, -190.0);
+        
+        Gravity = new Vector(0, -981.0);
         
         for(int i = 0; i < xsuunta.Length; i++)
         {
@@ -60,16 +58,15 @@ public class Tasohyppely : PhysicsGame
             raha = LuoRaha(rahax[i], rahay[i]);
         }
         
-        
-        Level.CreateRightBorder();
-        Level.CreateLeftBorder();
         alaReuna = Level.CreateBottomBorder();
-        
+        alaReuna.IsVisible = false;
         Level.Background.Color = Color.Cyan;
         
         Camera.Follow(olio);
         
     }
+    
+    
 /// <summary>
 /// Tehdään liuska jonka avuilla pelaaja hyppii
 /// </summary>
@@ -85,17 +82,21 @@ public class Tasohyppely : PhysicsGame
         Add(liuska);
         return liuska;
     }
+    
+    
 /// <summary>
 /// Näpppäinten lisääminen
 /// </summary>
     private void LisaaNappaimet()
     {
-        Keyboard.Listen(Key.Left, ButtonState.Down, Liikuta, "Pelaaja liikkuu vasemmalle", olio, nopeusVasen);
-        Keyboard.Listen(Key.Right, ButtonState.Down, Liikuta, "Pelaaja liikkuu oikealle", olio, nopeusOikea);
-        Keyboard.Listen(Key.Up, ButtonState.Down, Hyppy, "Pelaaja liikkuu ylös", olio, nopeusYlos);
+        Keyboard.Listen(Key.Left, ButtonState.Pressed, Liikuta, "Pelaaja liikkuu vasemmalle", olio, nopeusVasen);
+        Keyboard.Listen(Key.Right, ButtonState.Pressed, Liikuta, "Pelaaja liikkuu oikealle", olio, nopeusOikea);
+        Keyboard.Listen(Key.Up, ButtonState.Pressed, Hyppy, "Pelaaja liikkuu ylös", olio, nopeusYlos);
         
         Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
     }
+
+    
 /// <summary>
 /// Luodaan pelaaja, jota pystyy liikuttamaan
 /// </summary>
@@ -118,6 +119,8 @@ public class Tasohyppely : PhysicsGame
         Add(olio);
         return olio;
     }
+
+
 /// <summary>
 /// Luodaan raha, jota pelaajan tulee kerät
 /// </summary>
@@ -139,6 +142,8 @@ public class Tasohyppely : PhysicsGame
         Add(raha);
         return raha;
     }
+
+
 /// <summary>
 /// Tehdään sivuttaissuunnnan liike
 /// </summary>
@@ -146,6 +151,8 @@ public class Tasohyppely : PhysicsGame
     {
         olio.Move(nopeus);
     }
+
+
 /// <summary>
 /// Tehdään hyppäämisliike
 /// </summary>
@@ -153,6 +160,8 @@ public class Tasohyppely : PhysicsGame
     {
         olio.Hit(nopeus);
     }
+
+
 /// <summary>
 /// Rahan tormays luodaan
 /// </summary>
@@ -162,29 +171,22 @@ public class Tasohyppely : PhysicsGame
     {
         MessageDisplay.Add("Sait rahaa!");
         raha.Destroy();
-
-        int rahamaara = 0;
-
-        if (olio == raha)
-        {
-            rahamaara++;
-            if(rahamaara == 10)
-            {
-                MessageDisplay.Add("Onnea! Voitit pelin.");
-            }
-        }
         
-        if (olio == alaReuna)
+        if (alaReuna == olio)
         {
             AloitaAlusta();
         }
     }
+
+
 /// <summary>
 /// Aloitetaan peli alusta
 /// </summary>
     private void AloitaAlusta()
     {
         ClearAll();
+        Luokentta();
+        LisaaNappaimet();
     }
 
 }
