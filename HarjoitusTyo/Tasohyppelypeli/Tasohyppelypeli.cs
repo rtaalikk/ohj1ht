@@ -145,7 +145,7 @@ public class Tasohyppely : PhysicsGame
 
 
 /// <summary>
-/// Tehdään sivuttaissuunnnan liike
+/// Tehdään liikkuminen mahdolliseksi
 /// </summary>
     private void Liikuta(PhysicsObject olio, Vector nopeus)
     {
@@ -196,4 +196,5 @@ public class Tasohyppely : PhysicsGame
         PisteLaskuri();
     }
 
+    
 }
