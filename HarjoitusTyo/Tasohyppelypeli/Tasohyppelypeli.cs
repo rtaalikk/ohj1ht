@@ -107,7 +107,7 @@ public class Tasohyppely : PhysicsGame
 /// <returns>Palauttaa olion</returns>
     private PhysicsObject LuoPelaaja(double x, double y)
     {
-        PhysicsObject olio = new PhysicsObject(40, 40);
+        olio = new PhysicsObject(40, 40);
         
         olio.Shape = Shape.Circle;
         olio.Color = Color.Red;
@@ -131,7 +131,7 @@ public class Tasohyppely : PhysicsGame
 /// <param name="y">rahan y kordinaatti</param>
     private void LuoRaha(double x, double y)
     {
-        PhysicsObject raha = PhysicsObject.CreateStaticObject(40, 40);
+        PhysicsObject raha = PhysicsObject.CreateStaticObject(40.0, 40.0);
         
         raha.IgnoresCollisionResponse = true;
         raha.X = x;
