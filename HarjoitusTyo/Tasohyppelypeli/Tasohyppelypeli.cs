@@ -58,8 +58,11 @@ public class Tasohyppely : PhysicsGame
         
         alaReuna = Level.CreateBottomBorder();
         alaReuna.IsVisible = false;
+        alaReuna.Tag = "alareuna";
+        
         Level.Background.Color = Color.Cyan;
         Camera.Follow(olio);
+        
     }
     
     
@@ -113,6 +116,7 @@ public class Tasohyppely : PhysicsGame
         olio.Y = y;
         
         AddCollisionHandler(olio, "raha", Tormays);
+        AddCollisionHandler(olio, "alareuna", Kuolema );
         
         Add(olio);
         return olio;
@@ -161,6 +165,17 @@ public class Tasohyppely : PhysicsGame
     }
 
 
+/// <summary>
+/// Kuoleman eli alas hyppäämisen luominen peliin
+/// </summary>
+/// <param name="olio1">Kentällä oleva olio</param>
+/// <param name="alareuna1">Alareuna josta kuolee jos osuu</param>
+    private void Kuolema(PhysicsObject olio1, PhysicsObject alareuna1)
+    {
+        if (olio != alaReuna) AloitaAlusta();
+    }
+
+    
 /// <summary>
 /// pistelaskurin luominen
 /// </summary>
