@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO.Pipes;
+
 using Jypeli;
-using Jypeli.Assets;
-using Jypeli.Controls;
-using Jypeli.Widgets;
+
 
 namespace Tasohyppelypeli;
 
@@ -15,17 +11,17 @@ namespace Tasohyppelypeli;
 /// </summary>
 public class Tasohyppely : PhysicsGame
 {
-    PhysicsObject olio;
+    private PhysicsObject olio;
 
-    PhysicsObject alaReuna;
+    private PhysicsObject alaReuna;
 
-    Image pelaajanKuva = LoadImage("cartoon-cat-6761858_1280.png");
+    private Image pelaajanKuva = LoadImage("cartoon-cat-6761858_1280.png");
 
-    Vector nopeusYlos = new Vector(0, 900);
-    Vector nopeusVasen = new Vector(-300, 0);
-    Vector nopeusOikea = new Vector(300, 0);
+    private Vector nopeusYlos = new Vector(0, 900);
+    private Vector nopeusVasen = new Vector(-300, 0);
+    private Vector nopeusOikea = new Vector(300, 0);
 
-    IntMeter pistelaskuri;
+    private IntMeter pistelaskuri;
 
     
     /// <summary>
@@ -36,7 +32,6 @@ public class Tasohyppely : PhysicsGame
         Luokentta();
         LisaaNappaimet();
         PisteLaskuri();
-        
     }
 
     
@@ -147,22 +142,22 @@ public class Tasohyppely : PhysicsGame
 /// <summary>
 /// Tehdään liikkuminen mahdolliseksi
 /// </summary>
-    private void Liikuta(PhysicsObject olio, Vector nopeus)
+    private void Liikuta(PhysicsObject olio1, Vector nopeus)
     {
-        olio.Move(nopeus);
+        olio1.Move(nopeus);
     }
 
 
 /// <summary>
 /// Rahan tormays luodaan
 /// </summary>
-/// <param name="olio">Pelin olio</param>
+/// <param name="olio1">Pelin olio</param>
 /// <param name="raha">Pelin valuutta</param>
-    private void Tormays(PhysicsObject olio, PhysicsObject raha)
+    private void Tormays(PhysicsObject olio1, PhysicsObject raha)
     {
         MessageDisplay.Add("Sait rahaa!");
         raha.Destroy();
-        if (olio != raha) pistelaskuri.Value += 1;
+        if (olio1 != raha) pistelaskuri.Value += 1;
     }
 
 
